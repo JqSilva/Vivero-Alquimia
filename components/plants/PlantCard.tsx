@@ -23,7 +23,14 @@ export const PlantCard = ({ planta }: Props) => {
         <div className="flex items-center justify-between mt-1">
           <p className="text-primary font-bold">${planta.precio}</p>
           <div className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-[12px] text-orange-400">star</span>
+            <span 
+              className="material-symbols-outlined text-orange-400"
+              style={{ 
+                fontSize: '12px',      
+                fontVariationSettings: "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}
+            >
+              star
+            </span>
             <span className="text-[10px] font-medium opacity-60">4.8</span>
           </div>
         </div>

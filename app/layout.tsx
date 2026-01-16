@@ -9,24 +9,19 @@ export const metadata: Metadata = {
   description: "Botanica - Encuentra tu compañera verde",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="light">
       <head>
-        {/* Pegamos el link de Google Fonts aquí */}
         <link 
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" 
           rel="stylesheet" 
         />
       </head>
-      <body className="bg-background-light font-display text-[#121716] antialiased">
+      {/* Cambiamos el fondo del body a un gris para que resalte el 'celular' blanco */}
+      <body className="bg-gray-100 antialiased font-display">
         <TopBar />
-        {/* Main Container: Limita el ancho a 480px y centra en pantalla */}
-        <div className="relative flex min-h-screen w-full flex-col max-w-[480px] mx-auto shadow-2xl bg-background-light">
+        <div className="relative flex min-h-screen w-full flex-col max-w-[480px] mx-auto shadow-2xl bg-background-light overflow-x-hidden">
           {children}
         </div>
         <FloatingCart itemCount={2} totalPrice={83000} isVisible={true} />

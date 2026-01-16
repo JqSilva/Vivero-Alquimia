@@ -9,18 +9,38 @@
   --radius-xl: 1.5rem;
 }
 
+/* Forzamos estilos base sin depender solo de @layer si Tailwind no refresca */
+:root {
+  background-color: var(--color-background-light);
+  color: #121716;
+}
+
 @layer base {
   body {
     -webkit-tap-highlight-color: transparent;
     font-family: var(--font-display);
-    background-color: var(--color-background-light);
-    @apply antialiased text-[#121716];
+    /* Usamos apply para utilidades estándar, pero CSS puro para variables de tema */
+    @apply antialiased text-[#121716] bg-background-light;
   }
 
   .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    display: inline-block;
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    /* 1. Definimos un tamaño base pero permitimos que Tailwind lo pise */
+    font-size: 24px; 
+    
     line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+
+    /* Configuración de variaciones por defecto */
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 }
 
