@@ -42,7 +42,6 @@ export const DeliveryCalendar = () => {
 
   return (
     <div className="px-4 pt-6">
-      <h2 className="text-[#121716] text-xl font-bold leading-tight mb-4 italic">Programar Pedido</h2>
       
       <div className="bg-white rounded-2xl p-5 shadow-sm border border-zinc-100">
         <div className="flex justify-between items-center mb-6">
