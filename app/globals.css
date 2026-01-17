@@ -2,11 +2,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Epilogue", sans-serif;
   --color-primary: #3a6965;
   --color-background-light: #fafaf9;
   --color-background-dark: #1a2c2d;
   --radius-xl: 1.5rem;
+  --font-sans: "Epilogue", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Forzamos estilos base sin depender solo de @layer si Tailwind no refresca */
@@ -18,7 +18,6 @@
 @layer base {
   body {
     -webkit-tap-highlight-color: transparent;
-    font-family: var(--font-display);
     /* Usamos apply para utilidades estándar, pero CSS puro para variables de tema */
     @apply antialiased text-[#121716] bg-background-light;
   }

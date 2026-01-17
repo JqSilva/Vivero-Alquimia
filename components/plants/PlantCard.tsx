@@ -1,4 +1,6 @@
+import { useCart } from '@/context/CartContext';
 import { Planta } from '@/types';
+import Link from 'next/link';
 
 interface Props {
   planta: Planta;
@@ -6,17 +8,23 @@ interface Props {
 
 export const PlantCard = ({ planta }: Props) => {
   const tieneStock = planta.stock > 0;
-
+  const { addToCart } = useCart();
+  
   return (
     <div className="flex flex-col gap-3 group">
       {/* Imagen (puedes usar un placeholder por ahora) */}
-      <div className="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-2xl overflow-hidden shadow-sm"
-        style={{ backgroundImage: `url(${planta.imagen_url || '/placeholder-plant.png'})` }}
-      >
-        <button className="absolute bottom-3 right-3 flex size-9 items-center justify-center bg-primary text-white rounded-full shadow-lg active:scale-90 transition-transform">
-          <span className="material-symbols-outlined !text-xl">add</span>
-        </button>
-      </div>
+      <Link href={`/planta/${planta.id}`}>
+        <div className="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-2xl overflow-hidden shadow-sm"
+          style={{ backgroundImage: `url(${planta.imagen_url || '/placeholder-plant.png'})` }}
+        >
+          <button 
+            onClick={() => addToCart(planta)}
+            className="absolute bottom-3 right-3 flex size-9 items-center justify-center bg-primary text-white rounded-full shadow-lg active:scale-90 transition-transform"
+          >
+            <span className="material-symbols-outlined !text-xl">add</span>
+          </button>
+        </div>
+      </Link>
       <div className="px-1">
         <p className="text-sm font-bold leading-tight">{planta.nombre}</p>
         <div className="flex items-center justify-between mt-1">

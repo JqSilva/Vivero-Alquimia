@@ -8,7 +8,6 @@ export const BottomNav = () => {
 
   const navItems = [
     { name: 'Inicio', icon: 'home', path: '/' },
-    { name: 'Buscar', icon: 'search', path: '/search' },
     { name: 'Favoritos', icon: 'favorite', path: '/favorites' },
     { name: 'Perfil', icon: 'person', path: '/profile' },
   ];
