@@ -27,9 +27,7 @@
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
-    /* 1. Definimos un tamaño base pero permitimos que Tailwind lo pise */
-    font-size: 24px; 
-    
+    /* Eliminamos font-size: 24px; para que Tailwind tome el control */
     line-height: 1;
     letter-spacing: normal;
     text-transform: none;
@@ -38,8 +36,6 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
-
-    /* Configuración de variaciones por defecto */
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
 }

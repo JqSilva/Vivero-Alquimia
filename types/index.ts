@@ -16,6 +16,7 @@ export interface Planta {
   dias_reabastecimiento: number;
   categoria_id: number;
   imagen_url?: string;
+  puntuacion: number;
   
   // Atributos para el usuario aprendiz
   ubicacion: Ubicacion;
