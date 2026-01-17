@@ -8,7 +8,7 @@ export const FloatingCart = () => {
   if (totalItems === 0) return null;
 
   return (
-    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[480px] px-6 z-[55] animate-in slide-in-from-bottom-5">
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[480px] px-6 z-[55] animate-in slide-in-from-bottom-5 floating-cart-container">
       <button className="w-full bg-primary text-white h-14 rounded-2xl flex items-center justify-between px-6 shadow-2xl active:scale-95 transition-all">
         <div className="flex items-center gap-3">
           <span className="font-bold">{totalItems} items</span>

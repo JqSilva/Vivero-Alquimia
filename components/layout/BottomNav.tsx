@@ -8,8 +8,10 @@ export const BottomNav = () => {
 
   const navItems = [
     { name: 'Inicio', icon: 'home', path: '/' },
+    { name: 'Carrito', icon: 'shopping_cart', path: '/cart' },
     { name: 'Favoritos', icon: 'favorite', path: '/favorites' },
     { name: 'Perfil', icon: 'person', path: '/profile' },
+
   ];
 
   return (
@@ -25,7 +27,7 @@ export const BottomNav = () => {
               isActive ? "text-primary" : "text-neutral-400"
             }`}
           >
-            <span className={`material-symbols-outlined text-[26px] ${isActive ? "fill-1" : ""}`}>
+            <span className={`material-symbols-outlined text-[26px] ${isActive ? "fill-1" : ""}`} style={{fontVariationSettings: "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>
               {item.icon}
             </span>
             <span className={`text-[10px] ${isActive ? "font-bold" : "font-medium"}`}>

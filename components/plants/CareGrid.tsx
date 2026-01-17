@@ -1,7 +1,12 @@
 // src/components/plants/CareGrid.tsx
+
 import { Planta } from '@/types';
 
-export const CareGrid = ({ planta }: { planta: Planta }) => {
+interface CareGridProps {
+  planta: Planta;
+}
+
+export const CareGrid = ({ planta }: CareGridProps) => {
   const careItems = [
     { icon: 'opacity', label: 'Riego', value: planta.nivel_riego },
     { icon: 'wb_sunny', label: 'Luz', value: planta.nivel_luz },

@@ -18,7 +18,11 @@ export const PlantCard = ({ planta }: Props) => {
           style={{ backgroundImage: `url(${planta.imagen_url || '/placeholder-plant.png'})` }}
         >
           <button 
-            onClick={() => addToCart(planta)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToCart(planta);
+            }}
             className="absolute bottom-3 right-3 flex size-9 items-center justify-center bg-primary text-white rounded-full shadow-lg active:scale-90 transition-transform"
           >
             <span className="material-symbols-outlined !text-xl">add</span>

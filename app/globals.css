@@ -48,3 +48,13 @@
     scrollbar-width: none;
   }
 }
+
+/* Si estamos en una ruta de planta, ocultamos el nav principal */
+body:has(main.pb-80) nav {
+  display: none !important;
+}
+
+body:has(main.detalle-planta) .floating-cart-container {
+  bottom: 120px !important; /* Ajusta este valor según el alto de tu ActionFooter */
+  transition: bottom 0.3s ease;
+}
