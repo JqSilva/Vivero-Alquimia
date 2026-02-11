@@ -17,16 +17,6 @@ export const PlantCard = ({ planta }: Props) => {
         <div className="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-2xl overflow-hidden shadow-sm"
           style={{ backgroundImage: `url(${planta.imagen_url || '/placeholder-plant.png'})` }}
         >
-          <button 
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addToCart(planta);
-            }}
-            className="absolute bottom-3 right-3 flex size-9 items-center justify-center bg-primary text-white rounded-full shadow-lg active:scale-90 transition-transform"
-          >
-            <span className="material-symbols-outlined !text-xl">add</span>
-          </button>
         </div>
       </Link>
       <div className="px-1">

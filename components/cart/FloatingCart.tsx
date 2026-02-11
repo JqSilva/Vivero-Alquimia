@@ -1,6 +1,7 @@
 // src/components/cart/FloatingCart.tsx
 'use client';
 import { useCart } from '@/context/CartContext';
+import Link from 'next/link';
 
 export const FloatingCart = () => {
   const { totalItems, totalPrice } = useCart();
@@ -13,7 +14,7 @@ export const FloatingCart = () => {
         <div className="flex items-center gap-3">
           <span className="font-bold">{totalItems} items</span>
           <span className="w-px h-4 bg-white/30"></span>
-          <span className="text-sm font-medium">Ver Carrito</span>
+          <Link className="text-sm font-medium" href='/cart'>Ver Carrito</Link>
         </div>
         <p className="font-bold text-lg">${totalPrice.toLocaleString('es-CL')}</p>
       </button>

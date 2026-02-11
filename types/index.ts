@@ -30,3 +30,13 @@ export interface ItemCarrito extends Planta {
   cantidad: number;
   es_encargo: boolean; // Si stock era 0 al momento de agregar
 }
+
+export interface Pedido {
+  id?: number;
+  created_at?: string;
+  planta_id: number;
+  cantidad: number;
+  fecha_entrega: string;
+  total: number;
+  es_encargo: boolean;
+}

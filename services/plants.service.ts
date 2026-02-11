@@ -18,7 +18,7 @@ export const plantsService = {
       const { data, error } = await query;
 
       if (error) throw error;
-      console.log("Plantas obtenidas:", data);
+      
       return data || [];
     } catch (err) {
       console.error("Error al obtener plantas:", err);
