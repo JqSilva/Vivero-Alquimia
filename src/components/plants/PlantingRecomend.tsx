@@ -1,11 +1,10 @@
-import { Plant } from '@/core/entities/Plant';
-  
+import { Planta } from '@/types';
 
-interface Props {
-  planta: Plant;
+interface props {
+  planta: Planta;
 }
 
-export const PlantingRecomend = ({ planta }: Props) => {
+export const PlantingRecomend = ({ planta }: props) => {
   return (
     <div className="px-4 py-4">
         <div className='bg-primary/5 rounded-xl p-5 border-primary/10 flex items-center gap-4'>
@@ -17,6 +16,7 @@ export const PlantingRecomend = ({ planta }: Props) => {
                 <p className='text-xs text-zinc-600'>Recomendado: {planta.mes_plantacion ? `${planta.mes_plantacion} para un crecimiento óptimo.` : 'No especificada'}</p>
             </div>
         </div>
+        
     </div>
   );
 }

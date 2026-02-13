@@ -1,7 +1,10 @@
+/* src/app/globals.css */
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import "tailwindcss";
 
 @theme {
+  /* Asegúrate de que estos nombres coincidan con los que usas en tus componentes */
   --color-primary: #3a6965;
   --color-background-light: #fafaf9;
   --color-background-dark: #1a2c2d;
@@ -26,16 +29,16 @@
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
-    /* Eliminamos font-size: 24px; para que Tailwind tome el control */
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
+    font-size: 24px;
     display: inline-block;
-    white-space: nowrap;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
     word-wrap: normal;
+    white-space: nowrap;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    /* QUITAMOS font-variation-settings de aquí para que sea libre */
   }
 }
 
@@ -46,6 +49,15 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  /* Estado por defecto: Sin relleno */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  /* Estado Activo: Forzamos el eje FILL a 1 */
+  .material-symbols-outlined.is-active {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24 !important;
   }
 }
 
