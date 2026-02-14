@@ -16,6 +16,7 @@ export const DeliveryCalendar = () => {
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
+
   // 2. Lógica para guardar y exportar al contexto
   const seleccionarDia = (fecha: Date) => {
     setFechaSeleccionada(fecha); 

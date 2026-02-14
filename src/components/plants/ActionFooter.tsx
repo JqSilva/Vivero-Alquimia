@@ -24,58 +24,69 @@ export const ActionFooter = ({ planta }: { planta: Plant }) => {
     console.log("------------------------------------");
 
     // Añadimos al carrito la cantidad de veces seleccionada
-    for(let i=0; i < cantidad; i++) {
-      addToCart(planta, cantidad); 
-    }
+    addToCart(planta, cantidad);
 
     alert(`¡Listo! ${planta.name} añadido. Entrega programada para: ${fechaEntrega}`);
   };
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] p-4 bg-white/95 backdrop-blur-md border-t border-zinc-100 z-[70] shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-      <div className="flex flex-col gap-3">
-        {/* Selector de Cantidad */}
-        <div className="flex items-center justify-between px-2">
-          <span className="text-xs font-bold text-zinc-400 uppercase">Cantidad</span>
-          <div className="flex items-center gap-4 bg-zinc-100 rounded-lg p-1">
+    <div className="fixed bottom-0 left-0 right-0 z-[70] mx-auto w-full max-w-[480px] rounded-t-[32px] border-t border-zinc-100 bg-white/95 p-6 pb-10 shadow-[0_-12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+      <div className="flex flex-col gap-6">
+        
+        {/* Selector de Cantidad - Más equilibrado */}
+        <div className="flex items-center justify-between bg-zinc-50/50 p-2 rounded-2xl border border-zinc-100/50">
+          <div className="flex items-center gap-2 pl-2">
+            <span className="material-symbols-outlined text-zinc-400 text-lg"></span>
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-500">Cantidad</span>
+          </div>
+          
+          <div className="flex items-center gap-4 rounded-xl bg-white p-1.5 shadow-sm border border-zinc-100">
             <button 
               onClick={() => setCantidad(Math.max(1, cantidad - 1))} 
-              className="size-7 bg-white rounded-md shadow-sm font-bold active:bg-zinc-50"
+              className="flex size-8 items-center justify-center rounded-xl bg-zinc-50 text-zinc-600 transition-colors active:bg-zinc-200 disabled:opacity-30"
+              disabled={cantidad <= 1}
             >
-              -
+              <span className="material-symbols-outlined !text-lg">remove</span>
             </button>
-            <span className="font-bold text-sm w-4 text-center">{cantidad}</span>
+            
+            <span className="w-6 text-center text-base font-heavy text-zinc-800">{cantidad}</span>
+            
             <button 
               onClick={() => setCantidad(cantidad + 1)} 
-              className="size-7 bg-white rounded-md shadow-sm font-bold active:bg-zinc-50"
+              className="flex size-8 items-center justify-center rounded-xl bg-primary/30 text-primary transition-colors active:bg-primary/20"
             >
-              +
+              <span className="material-symbols-outlined !text-lg">add</span>
             </button>
           </div>
         </div>
 
-        {/* Info de Precio y Botón Acción */}
-        <div className="flex items-center gap-4">
+        {/* Info de Precio y Acción Principal */}
+        <div className="flex items-center justify-between gap-4">
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase font-bold text-zinc-400">
-              {sinStock ? 'Seña Encargo' : 'Total a pagar'}
+            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
+              {sinStock ? 'Seña de Encargo' : 'Total Estimado'}
             </span>
-            <span className="text-xl font-extrabold text-primary">
-              ${(precioFinal * cantidad).toLocaleString('es-CL')}
-            </span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-sm font-bold text-primary">$</span>
+              <span className="text-2xl font-black tracking-tight text-primary">
+                {(precioFinal * cantidad).toLocaleString('es-CL')}
+              </span>
+            </div>
           </div>
 
           <button 
             onClick={manejarClick}
-            className={`flex-1 h-12 rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-all text-white ${
-              sinStock ? "bg-zinc-900" : "bg-primary"
+            className={`group relative flex h-14 flex-1 items-center justify-center gap-3 overflow-hidden rounded-2xl font-bold text-white shadow-lg transition-all active:scale-95 ${
+              sinStock 
+                ? "bg-zinc-900 shadow-zinc-200" 
+                : "bg-primary shadow-primary/25"
             }`}
           >
-            <span className="material-symbols-outlined text-sm">
-              {sinStock ? 'assignment_late' : 'shopping_cart'}
+            <span className="material-symbols-outlined text-xl transition-transform group-hover:scale-110">
+              {sinStock ? 'priority_high' : 'shopping_bag'}
             </span>
-            <span className="text-sm">
-              {sinStock ? 'Encargar Planta' : 'Añadir al Carrito'}
+            <span className="text-sm tracking-wide">
+              {sinStock ? 'Encargar ahora' : 'Añadir al carrito'}
             </span>
           </button>
         </div>

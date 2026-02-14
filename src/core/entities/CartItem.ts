@@ -8,5 +8,4 @@ export interface CartItem {
   total: number;
   esEncargo: boolean;   // Si es seña (30%) o pago total
   imageUrl?: string;
-  ubicacion?: string;   // Por si quieres mostrar si es Interior/Exterior en el resumen
 }

@@ -18,7 +18,6 @@ export default function PlantDetailPage() {
   console.log("Parámetros de la URL:", params.id); // Debug
   const { planta, loading, error } = usePlant(params.id);
 
-  console.log("Datos de la planta:", planta); // Debug
   
 
   if (loading || !planta) return null;

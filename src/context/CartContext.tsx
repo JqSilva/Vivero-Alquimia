@@ -7,6 +7,7 @@ interface CartContextType {
   fechaEntrega: string | null;
   setFechaEntrega: (fecha: string) => void;
   addToCart: (planta: Planta, cantidad: number) => void;
+  updateQuantity: (cartId: string, cambio: number) => void; 
   removeFromCart: (cartId: string) => void;
   clearCart: () => void;
 }
@@ -15,7 +16,27 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [fechaEntrega, setFechaEntrega] = useState<string | null>(null);
+  
+  // Default: Hoy
+  const [fechaEntrega, setFechaEntrega] = useState<string | null>(new Date().toISOString().split('T')[0]);
+
+
+  // CARGA INICIAL: Solo una vez al montar
+  useEffect(() => {
+    const localCart = localStorage.getItem('alquimia_cart');
+    if (localCart) {
+      try {
+        setCart(JSON.parse(localCart));
+      } catch (e) {
+        console.error("Error al parsear carrito:", e);
+      }
+    }
+  }, []);
+
+  // PERSISTENCIA: Cada vez que el carrito cambia
+  useEffect(() => {
+    localStorage.setItem('alquimia_cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (planta: Planta, cantidad: number) => {
     if (!fechaEntrega) {
@@ -23,56 +44,70 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    const sinStock = planta.stock === 0;
-    const precioUnitario = sinStock ? (planta.price * 0.3) : planta.price;
+    const idPedido = `${planta.id}-${fechaEntrega}`;
 
-    const nuevoPedido: CartItem = {
-      cartId: Date.now().toString(), // ID único basado en tiempo
-      plantaId: planta.id,
-      nombre: planta.name,
-      cantidad: cantidad,
-      fechaEntrega: fechaEntrega,
-      precioUnitario: precioUnitario,
-      total: precioUnitario * cantidad,
-      esEncargo: sinStock,
-      imageUrl: planta.imageUrl
-    };
+    console.log("planta:", planta);
 
-    setCart((prev) => [...prev, nuevoPedido]);
-    console.log("🛒 Producto añadido al carrito global:", nuevoPedido);
+    setCart((prev) => {
+      // 1. Buscamos si ya existe la misma planta para la misma fecha [cite: 187]
+      const existe = prev.find(item => item.cartId === idPedido);
+
+      if (existe) {
+        return prev.map(item => 
+          item.cartId === idPedido 
+            ? { ...item, cantidad: item.cantidad + cantidad, total: item.precioUnitario * (item.cantidad + cantidad) }
+            : item
+        );
+      }
+
+      // 3. Si no existe, creamos el pedido nuevo 
+      const sinStock = planta.stock === 0; 
+      const precioBase = planta.precio || (planta as any).price;
+      const precioUnitario = sinStock ? (precioBase * 0.3) : precioBase; 
+
+      const nuevoPedido: CartItem = {
+        cartId: idPedido,
+        plantaId: String(planta.id),
+        nombre: planta.name,
+        cantidad: cantidad,
+        fechaEntrega: fechaEntrega,
+        precioUnitario: precioUnitario,
+        total: precioUnitario * cantidad,
+        esEncargo: sinStock,
+        imageUrl: planta.imageUrl
+      };
+
+      return [...prev, nuevoPedido];
+    });
   };
 
+  const updateQuantity = (cartId: string, cambio: number) => {
+    setCart((prev) =>
+      prev.map(item => {
+        if (item.cartId === cartId) {
+          const nuevaCantidad = Math.max(1, item.cantidad + cambio);
+          return { ...item, cantidad: nuevaCantidad, total: item.precioUnitario * nuevaCantidad };
+        }
+        return item;
+      })
+    );
+  };
   const removeFromCart = (cartId: string) => {
     setCart((prev) => prev.filter(item => item.cartId !== cartId));
   };
 
   const clearCart = () => setCart([]);
-
-  // 1. Al cargar por primera vez: Recuperar del LocalStorage
-  useEffect(() => {
-    const localCart = localStorage.getItem('alquimia_cart');
-    if (localCart) {
-      setCart(JSON.parse(localCart));
-    }
-  }, []);
-
-  // 2. Cada vez que el carrito cambie: Guardar en LocalStorage
-  useEffect(() => {
-    localStorage.setItem('alquimia_cart', JSON.stringify(cart));
-  }, [cart]);
-
-
+  
   return (
-    <CartContext.Provider value={{ cart, fechaEntrega, setFechaEntrega, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, fechaEntrega, setFechaEntrega, addToCart, updateQuantity, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
-  
 };
 
 export const useCart = () => {
   const context = useContext(CartContext);
+  console.log("Contexto CartContext:", context); // Debug para verificar que el contexto se está proporcionando correctamente
   if (!context) throw new Error("useCart debe usarse dentro de un CartProvider");
   return context;
 };
-
