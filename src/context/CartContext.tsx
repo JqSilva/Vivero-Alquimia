@@ -1,12 +1,14 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Planta, CartItem } from '@/core/entities';
+import { CartItem } from '@/core/entities/CartItem';
+import { Plant } from '@/core/entities/Plant';
+
 
 interface CartContextType {
   cart: CartItem[];
   fechaEntrega: string | null;
   setFechaEntrega: (fecha: string) => void;
-  addToCart: (planta: Planta, cantidad: number) => void;
+  addToCart: (planta: Plant, cantidad: number) => void;
   updateQuantity: (cartId: string, cambio: number) => void; 
   removeFromCart: (cartId: string) => void;
   clearCart: () => void;
@@ -38,7 +40,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('alquimia_cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (planta: Planta, cantidad: number) => {
+  const addToCart = (planta: Plant, cantidad: number) => {
     if (!fechaEntrega) {
       alert("Por favor, selecciona una fecha de entrega en el calendario.");
       return;
@@ -62,7 +64,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
       // 3. Si no existe, creamos el pedido nuevo 
       const sinStock = planta.stock === 0; 
-      const precioBase = planta.precio || (planta as any).price;
+      const precioBase = planta.price || (planta as any).price;
       const precioUnitario = sinStock ? (precioBase * 0.3) : precioBase; 
 
       const nuevoPedido: CartItem = {
